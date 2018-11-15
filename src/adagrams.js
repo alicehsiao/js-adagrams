@@ -119,23 +119,26 @@ const Adagrams = {
     // Finds all words with the max score
     const maxWords = Object.keys(scores).filter(word => scores[word] == maxScore);
 
+    let finalWord = "";
     if (maxWords.length == 1) {
-      return { word: maxWords[0], score: maxScore };
+      finalWord = maxWords[0];
     } else {
       let minLength = Math.min(...maxWords.map(word => word.length));
       let bestWords = maxWords.filter(word => word.length == minLength || word.length == 10);
 
       if (bestWords.length == 1){
-        return {word: bestWords[0], score: maxScore};
+        finalWord = bestWords[0];
       } else if (bestWords.length > 1) {
         for (const word of bestWords) {
           if (word.length == 10) {
             return {word: word, score: scores[word]};
           }
         }
-        return {word: bestWords[0], score: maxScore};
+        finalWord = bestWords[0];
       }
     }
+
+    return {word: finalWord, score: scores[finalWord]};
   }
 };
 
